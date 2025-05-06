@@ -1,0 +1,41 @@
+@processor.py
+processes and stores data files as objects 
+    - sequences.fasta as sequences_fasta using biopython
+    - test.tsv as test_df using pandas
+    - train.tsv as train_df using pandas
+splits train_df into training and validation sets 
+sets are dictionary with gene_id as keys and tuples of sequence and label
+creates test set with only sequences as values
+process_all(fasta_file, train_tsv, test_tsv)
+
+@pipeline.py
+__init__()
+    - model = HyenaDNA
+    - classifier = Neural Networks
+get_embedding()
+    - feed a sequence into the model to get embeddings
+    - extract last hidden layer (logits)
+make_dataset()
+    - from a training set,
+    - generate a dictionary where sequences are swapped for logits
+train()
+    - extract X, y lists from train data 
+    - train model with those lists
+evaluate()
+    - extract X, y lists from validation data 
+    - make predictions from X
+    - evaluate with y by generating a report
+make_testset()
+    - from a test set,
+    - generate a dictionary where sequences are swapped for logits
+predict()
+    - extract X list
+    - make predictions from X
+
+@exporter.py
+
+    - append 
+
+@main.py
+
+@config.py
