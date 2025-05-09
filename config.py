@@ -1,4 +1,4 @@
-FASTA = 'data/genes.fasta'
+FASTA = 'data/sequences.fasta'
 TRAIN_TSV = 'data/train.tsv'
 TEST_TSV = 'data/test.tsv'
 

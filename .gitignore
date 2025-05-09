@@ -1,3 +1,27 @@
+# Byte-compiled / cache
 __pycache__/
-*.pyc
+*.py[cod]
+*.so
+
+# Virtual environment
 .venv/
+venv/
+
+# Cache directories
+cache/
+*.npz
+*.npy
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Config / secrets
+config.py
+*.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# VSCode settings (if applicable)
+.vscode/

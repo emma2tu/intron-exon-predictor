@@ -1,89 +1,147 @@
+import os
+import random
 import pandas as pd
 from Bio import SeqIO
 import joblib
-import os
 
 class GeneDataProcessor:
-    def __init__(self):
-        self.train_df = None
-        self.test_df = None
-        self.gene_to_sequence_dict = {}
-        self.training_set = {}
-        self.validation_set = {}
-        self.testing_set = {}
-        self.cache_path = "cache/processor.pkl"
+    def __init__(self, fasta_file=None, labels_tsv=None, pred_tsv=None):
+        self.fasta_file = fasta_file
+        self.labels_tsv = labels_tsv
+        self.pred_tsv = pred_tsv
+        self.sequences = {}
+        self.labels = {}
+        self.pred_set = {}
+        self.train_set = {}
+        self.val_set = {}
+        self.test_set = {}
+        self.test_labels = {}
+        self.cache_path = "cache/dnaprocessor.pkl"
     
     def __str__(self):
         summary = (
             "GeneDataProcessor Summary:\n"
-            f"  Genes in raw FASTA: {len(self.gene_to_sequence_dict)}\n"
-            f"  Genes in train.tsv: {len(self.training_set)+len(self.validation_set)}\n"
-            f"  Genes in test.tsv: {len(self.testing_set)}\n"
-            f"  Training set size: {len(self.training_set)}\n"
-            f"  Validation set size: {len(self.validation_set)}\n"
-            f"  Testing set size: {len(self.testing_set)}"
+            f"Fasta File: {self.fasta_file}\n"
+            f"Labels TSV: {self.labels_tsv}\n"  
+            f"Pred TSV: {self.pred_tsv}\n"
+            f"Total Sequences: {len(self.sequences)}\n"
+            f"Total Labels: {len(self.labels)}\n"
+            f"Total Pred Set: {len(self.pred_set)}\n"
+            f"Total Train Set: {len(self.train_set)}\n"
+            f"Total Val Set: {len(self.val_set)}\n"
+            f"Total Test Set: {len(self.test_set)}\n"
+            f"Total Test Labels: {len(self.test_labels)}\n"
+            f"Cache Path: {self.cache_path}\n"
         )
         return summary
 
-    def process_fasta(self, fasta_file):
+    def process_fasta(self):
         """
         Processes the fasta file and returns a dictionary with gene_id as keys and sequences as values
         """
+        print(f"Loading FASTA file: {self.fasta_file}")
+        self.sequences = {}
 
-        self.gene_to_sequence_dict = {}
-        
-        for record in SeqIO.parse(fasta_file, "fasta"):
+        for i, record in enumerate(SeqIO.parse(self.fasta_file, "fasta")):
             gene_id = record.id
-            self.gene_to_sequence_dict[gene_id] = str(record.seq)
+            self.sequences[gene_id] = str(record.seq)
+            if i < 3:
+                print(f"Found gene: {gene_id}")
+
+        print(f"Total genes loaded: {len(self.sequences)}")
+        return self.sequences
+    
+    def process_labels(self):
+        """
+        Processes the labels tsv file and returns a dictionary with gene_id as keys and labels as values
+        """
+        print(f"Loading labels TSV file: {self.labels_tsv}")
+        self.labels = {}
         
-        return self.gene_to_sequence_dict
-
-    def process_tsv(self, train_tsv, test_tsv):
-        """
-        Processes the train and test tsv files and returns dataframes
-        """
-        self.train_df = pd.read_csv(train_tsv, sep="\t")
-        self.test_df = pd.read_csv(test_tsv, sep="\t")
+        label_df = pd.read_csv(self.labels_tsv, sep="\t")
         
-        return self.train_df, self.test_df
-
-    def split_train_val(self):
-        """
-        Splits the train dataframe into training and validation sets
-        """
-        # Assuming the last 20% of the data is used for validation
-        val_size = int(0.2 * len(self.train_df))
-        temp_train_data = self.train_df[:-val_size]
-        temp_val_data = self.train_df[-val_size:]
-        self.train_set = dict(temp_train_data.iloc[:, [0, 1]].values)
-        self.val_set = dict(temp_val_data.iloc[:, [0, 1]].values)
-
-        # Convert the set values into tuples of (sequence, label)
-        for gene_id in self.train_set.keys():
-            sequence = self.gene_to_sequence_dict[gene_id]
-            label = self.train_set[gene_id]
-            self.train_set[gene_id] = (sequence, label)
-
-        for gene_id in self.val_set.keys():
-            sequence = self.gene_to_sequence_dict[gene_id]
-            label = self.val_set[gene_id]
-            self.val_set[gene_id] = (sequence, label)
-        
-        return self.train_set, self.val_set
-
-    def create_test_set(self):
-        """
-        Creates the test set with only sequences as values
-        """
-        self.test_set = {}
-        
-        for index, row in self.test_df.iterrows():
+        for i, row in label_df.iterrows():
             gene_id = row['id']
-            sequence = self.gene_to_sequence_dict[gene_id]
-            self.test_set[gene_id] = sequence
+            label_string = row['label']
+            self.labels[gene_id] = label_string
         
-        return self.test_set
-
+        print(f"Total labels loaded: {len(self.labels)}")
+        return self.labels
+    
+    def create_pred_set(self):
+        """
+        Creates the prediction set with only sequences as values
+        """
+        self.pred_set = {}
+        
+        pred_df = pd.read_csv(self.pred_tsv, sep="\t")
+        
+        for i, row in pred_df.iterrows():
+            gene_id = row['id']
+            sequence = self.sequences[gene_id]
+            self.pred_set[gene_id] = sequence
+        
+        return self.pred_set
+    
+    def create_train_val_test_split(self, train_ratio=0.7, val_ratio=0.15, random_seed=42, max_labeled_genes=30000):
+        """
+        Split the data into training, validation, and test sets
+        """
+        # Find genes that have both sequence and labels
+        common_genes = sorted(set(self.sequences.keys()) & set(self.labels.keys()))
+        
+            # Optionally limit total number of labeled genes
+        if max_labeled_genes is not None:
+            common_genes = common_genes[:max_labeled_genes]
+            print(f"Limiting to first {max_labeled_genes} labeled genes for training/validation/testing.")
+        
+        # Set random seed for reproducibility
+        random.seed(random_seed)
+        random.shuffle(common_genes)
+        
+        # Calculate split indices
+        train_end = int(len(common_genes) * train_ratio)
+        val_end = train_end + int(len(common_genes) * val_ratio)
+        
+        # Split gene IDs
+        train_genes = common_genes[:train_end]
+        val_genes = common_genes[train_end:val_end]
+        test_genes = common_genes[val_end:]
+        
+        # Create datasets
+        self.train_set = {gene_id: (self.sequences[gene_id], self.labels[gene_id]) for gene_id in train_genes}
+        self.val_set = {gene_id: (self.sequences[gene_id], self.labels[gene_id]) for gene_id in val_genes}
+        self.test_set = {gene_id: self.sequences[gene_id] for gene_id in test_genes}
+        self.test_labels = {gene_id: self.labels[gene_id] for gene_id in test_genes}
+        
+        return self.train_set, self.val_set, self.test_set, self.test_labels
+        
+    def load_or_process_all(self, fasta_file=None, labels_tsv=None, test_tsv=None, max_labeled_genes=30000):
+        """
+        Load or process all data
+        """
+        if fasta_file:
+            self.fasta_file = fasta_file
+        if labels_tsv:
+            self.labels_tsv = labels_tsv
+        if test_tsv:
+            self.test_tsv = test_tsv
+        
+        # Try loading from cache
+        cached = self.load_cache(self.cache_path)
+        if cached:
+            return cached
+        
+        # Process everything from scratch
+        print("Processing from scratch...")
+        self.process_fasta()
+        self.process_labels()
+        self.create_pred_set()
+        self.create_train_val_test_split(max_labeled_genes=max_labeled_genes)
+        self.save_cache() # Save to cache
+        
+        return self
+    
     def save_cache(self):
         """
         Saves the processor object to a cache file
@@ -93,31 +151,16 @@ class GeneDataProcessor:
         
         with open(self.cache_path, 'wb') as f:
             joblib.dump(self, f)
-    @staticmethod
 
-    def load_cache():
+    @staticmethod
+    def load_cache(cache_path="cache/dnaprocessor.pkl"):
         """
-        Loads the processor object from a cache file
+        Loads the GeneDataProcessor object from a cache file.
         """
-        if os.path.exists("cache/processor.pkl"):
-            with open("cache/processor.pkl", 'rb') as f:
+        if os.path.exists(cache_path):
+            with open(cache_path, 'rb') as f:
+                print(f"✅ Cache loaded from: {cache_path}")
                 return joblib.load(f)
         else:
+            print("⚠️ Cache file not found.")
             return None
-    @staticmethod
-
-    def load_or_process_all(self, fasta_file, train_tsv, test_tsv):
-        """
-        Loads the processor object from a cache file or processes all files if cache does not exist
-        """
-        processor = GeneDataProcessor.load_cache()
-        
-        if processor is None:
-            processor = GeneDataProcessor()
-            processor.process_fasta(fasta_file)
-            processor.process_tsv(train_tsv, test_tsv)
-            processor.split_train_val()
-            processor.create_test_set()
-            processor.save_cache()
-        
-        return processor

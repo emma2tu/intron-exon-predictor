@@ -1,0 +1,62 @@
+Training run started at 2025-05-08 22:48:56.756504
+Model: LongSafari/hyenadna-small-32k-seqlen-hf
+Device: cuda
+Batch size: 4
+Learning rate: 0.0005
+Accumulation steps: 4
+Effective batch size: 16
+Warmup epochs: 5
+Max epochs: 50
+Patience: 10
+Training set size: 21000
+Validation set size: 4500
+Epoch 1/50: Train Loss = 0.2008, Train F1 = 0.9134, LR = 0.000101, Time = 572.26s, Val Loss = 0.0604, Val F1 = 0.9797 [IMPROVED - saved model]
+Epoch 2/50: Train Loss = 0.0521, Train F1 = 0.9817, LR = 0.000201, Time = 574.22s, Val Loss = 0.0509, Val F1 = 0.9816 [IMPROVED - saved model]
+Epoch 3/50: Train Loss = 0.0472, Train F1 = 0.9832, LR = 0.000301, Time = 575.52s, Val Loss = 0.0451, Val F1 = 0.9841 [IMPROVED - saved model]
+Epoch 4/50: Train Loss = 0.0445, Train F1 = 0.9842, LR = 0.000400, Time = 573.74s, Val Loss = 0.0415, Val F1 = 0.9852 [IMPROVED - saved model]
+Epoch 5/50: Train Loss = 0.0526, Train F1 = 0.9826, LR = 0.000429, Time = 578.16s, Val Loss = 0.0530, Val F1 = 0.9802 [No improvement for 1 epochs]
+Epoch 6/50: Train Loss = 0.0420, Train F1 = 0.9851, LR = 0.000001, Time = 570.58s, Val Loss = 0.0420, Val F1 = 0.9850 [No improvement for 2 epochs]
+Epoch 7/50: Train Loss = 0.0414, Train F1 = 0.9852, LR = 0.000001, Time = 572.64s, Val Loss = 0.0418, Val F1 = 0.9850 [No improvement for 3 epochs]
+Epoch 8/50: Train Loss = 0.0411, Train F1 = 0.9853, LR = 0.000001, Time = 575.03s, Val Loss = 0.0416, Val F1 = 0.9851 [No improvement for 4 epochs]
+Epoch 9/50: Train Loss = 0.0412, Train F1 = 0.9854, LR = 0.000001, Time = 571.09s, Val Loss = 0.0414, Val F1 = 0.9852 [IMPROVED - saved model]
+Epoch 10/50: Train Loss = 0.0412, Train F1 = 0.9854, LR = 0.000001, Time = 570.09s, Val Loss = 0.0413, Val F1 = 0.9852 [IMPROVED - saved model]
+Epoch 11/50: Train Loss = 0.0404, Train F1 = 0.9855, LR = 0.000001, Time = 571.99s, Val Loss = 0.0411, Val F1 = 0.9853 [IMPROVED - saved model]
+Epoch 12/50: Train Loss = 0.0407, Train F1 = 0.9855, LR = 0.000001, Time = 571.34s, Val Loss = 0.0410, Val F1 = 0.9853 [IMPROVED - saved model]
+Epoch 13/50: Train Loss = 0.0408, Train F1 = 0.9856, LR = 0.000001, Time = 568.26s, Val Loss = 0.0409, Val F1 = 0.9854 [IMPROVED - saved model]
+Epoch 14/50: Train Loss = 0.0405, Train F1 = 0.9856, LR = 0.000001, Time = 570.41s, Val Loss = 0.0408, Val F1 = 0.9854 [IMPROVED - saved model]
+Epoch 15/50: Train Loss = 0.0407, Train F1 = 0.9857, LR = 0.000001, Time = 569.26s, Val Loss = 0.0407, Val F1 = 0.9854 [IMPROVED - saved model]
+Epoch 16/50: Train Loss = 0.0406, Train F1 = 0.9857, LR = 0.000001, Time = 569.71s, Val Loss = 0.0405, Val F1 = 0.9855 [IMPROVED - saved model]
+Epoch 17/50: Train Loss = 0.0398, Train F1 = 0.9858, LR = 0.000001, Time = 575.46s, Val Loss = 0.0404, Val F1 = 0.9855 [IMPROVED - saved model]
+Epoch 18/50: Train Loss = 0.0399, Train F1 = 0.9858, LR = 0.000001, Time = 569.94s, Val Loss = 0.0403, Val F1 = 0.9856 [IMPROVED - saved model]
+Epoch 19/50: Train Loss = 0.0401, Train F1 = 0.9859, LR = 0.000001, Time = 570.85s, Val Loss = 0.0402, Val F1 = 0.9856 [IMPROVED - saved model]
+Epoch 20/50: Train Loss = 0.0399, Train F1 = 0.9859, LR = 0.000001, Time = 572.38s, Val Loss = 0.0400, Val F1 = 0.9857 [IMPROVED - saved model]
+Epoch 21/50: Train Loss = 0.0398, Train F1 = 0.9860, LR = 0.000001, Time = 568.16s, Val Loss = 0.0399, Val F1 = 0.9857 [IMPROVED - saved model]
+Epoch 22/50: Train Loss = 0.0396, Train F1 = 0.9860, LR = 0.000001, Time = 569.74s, Val Loss = 0.0398, Val F1 = 0.9857 [IMPROVED - saved model]
+Epoch 23/50: Train Loss = 0.0395, Train F1 = 0.9861, LR = 0.000001, Time = 571.29s, Val Loss = 0.0397, Val F1 = 0.9858 [IMPROVED - saved model]
+Epoch 24/50: Train Loss = 0.0390, Train F1 = 0.9861, LR = 0.000001, Time = 573.81s, Val Loss = 0.0396, Val F1 = 0.9858 [IMPROVED - saved model]
+Epoch 25/50: Train Loss = 0.0391, Train F1 = 0.9861, LR = 0.000001, Time = 571.27s, Val Loss = 0.0395, Val F1 = 0.9859 [IMPROVED - saved model]
+Epoch 26/50: Train Loss = 0.0390, Train F1 = 0.9862, LR = 0.000001, Time = 569.19s, Val Loss = 0.0394, Val F1 = 0.9859 [IMPROVED - saved model]
+Epoch 27/50: Train Loss = 0.0395, Train F1 = 0.9862, LR = 0.000001, Time = 567.34s, Val Loss = 0.0393, Val F1 = 0.9859 [IMPROVED - saved model]
+Epoch 28/50: Train Loss = 0.0390, Train F1 = 0.9862, LR = 0.000001, Time = 571.84s, Val Loss = 0.0393, Val F1 = 0.9860 [IMPROVED - saved model]
+Epoch 29/50: Train Loss = 0.0391, Train F1 = 0.9863, LR = 0.000001, Time = 569.12s, Val Loss = 0.0392, Val F1 = 0.9860 [IMPROVED - saved model]
+Epoch 30/50: Train Loss = 0.0386, Train F1 = 0.9863, LR = 0.000001, Time = 570.44s, Val Loss = 0.0391, Val F1 = 0.9860 [IMPROVED - saved model]
+Epoch 31/50: Train Loss = 0.0389, Train F1 = 0.9863, LR = 0.000001, Time = 568.47s, Val Loss = 0.0392, Val F1 = 0.9860 [No improvement for 1 epochs]
+Epoch 32/50: Train Loss = 0.0387, Train F1 = 0.9863, LR = 0.000001, Time = 578.98s, Val Loss = 0.0390, Val F1 = 0.9861 [IMPROVED - saved model]
+Epoch 33/50: Train Loss = 0.0386, Train F1 = 0.9864, LR = 0.000001, Time = 547.86s, Val Loss = 0.0390, Val F1 = 0.9861 [IMPROVED - saved model]
+Epoch 34/50: Train Loss = 0.0382, Train F1 = 0.9864, LR = 0.000001, Time = 548.00s, Val Loss = 0.0389, Val F1 = 0.9861 [IMPROVED - saved model]
+Epoch 35/50: Train Loss = 0.0387, Train F1 = 0.9864, LR = 0.000001, Time = 545.21s, Val Loss = 0.0389, Val F1 = 0.9861 [IMPROVED - saved model]
+Epoch 36/50: Train Loss = 0.0385, Train F1 = 0.9864, LR = 0.000001, Time = 546.51s, Val Loss = 0.0388, Val F1 = 0.9861 [IMPROVED - saved model]
+Epoch 37/50: Train Loss = 0.0385, Train F1 = 0.9864, LR = 0.000001, Time = 546.52s, Val Loss = 0.0388, Val F1 = 0.9862 [IMPROVED - saved model]
+Epoch 38/50: Train Loss = 0.0384, Train F1 = 0.9865, LR = 0.000001, Time = 544.44s, Val Loss = 0.0387, Val F1 = 0.9862 [IMPROVED - saved model]
+Epoch 39/50: Train Loss = 0.0386, Train F1 = 0.9865, LR = 0.000001, Time = 540.32s, Val Loss = 0.0387, Val F1 = 0.9862 [IMPROVED - saved model]
+Epoch 40/50: Train Loss = 0.0385, Train F1 = 0.9865, LR = 0.000001, Time = 543.54s, Val Loss = 0.0386, Val F1 = 0.9862 [IMPROVED - saved model]
+Epoch 41/50: Train Loss = 0.0380, Train F1 = 0.9865, LR = 0.000001, Time = 545.94s, Val Loss = 0.0386, Val F1 = 0.9863 [IMPROVED - saved model]
+Epoch 42/50: Train Loss = 0.0380, Train F1 = 0.9865, LR = 0.000001, Time = 544.83s, Val Loss = 0.0386, Val F1 = 0.9863 [IMPROVED - saved model]
+Epoch 43/50: Train Loss = 0.0384, Train F1 = 0.9865, LR = 0.000001, Time = 543.98s, Val Loss = 0.0386, Val F1 = 0.9863 [IMPROVED - saved model]
+Epoch 44/50: Train Loss = 0.0383, Train F1 = 0.9865, LR = 0.000001, Time = 545.55s, Val Loss = 0.0385, Val F1 = 0.9863 [IMPROVED - saved model]
+Epoch 45/50: Train Loss = 0.0378, Train F1 = 0.9866, LR = 0.000001, Time = 547.22s, Val Loss = 0.0385, Val F1 = 0.9863 [No improvement for 1 epochs]
+Epoch 46/50: Train Loss = 0.0380, Train F1 = 0.9866, LR = 0.000001, Time = 545.53s, Val Loss = 0.0385, Val F1 = 0.9863 [IMPROVED - saved model]
+Epoch 47/50: Train Loss = 0.0380, Train F1 = 0.9866, LR = 0.000001, Time = 543.91s, Val Loss = 0.0384, Val F1 = 0.9863 [IMPROVED - saved model]
+Epoch 48/50: Train Loss = 0.0380, Train F1 = 0.9866, LR = 0.000001, Time = 544.41s, Val Loss = 0.0384, Val F1 = 0.9864 [IMPROVED - saved model]
+Epoch 49/50: Train Loss = 0.0378, Train F1 = 0.9866, LR = 0.000001, Time = 549.47s, Val Loss = 0.0384, Val F1 = 0.9863 [No improvement for 1 epochs]
+Epoch 50/50: Train Loss = 0.0378, Train F1 = 0.9866, LR = 0.000001, Time = 544.48s, Val Loss = 0.0383, Val F1 = 0.9864 [IMPROVED - saved model]

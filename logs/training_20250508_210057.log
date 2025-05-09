@@ -1,0 +1,12 @@
+Training run started at 2025-05-08 21:00:57.994101
+Model: LongSafari/hyenadna-small-32k-seqlen-hf
+Device: cuda
+Batch size: 4
+Learning rate: 0.0005
+Accumulation steps: 4
+Effective batch size: 16
+Warmup epochs: 5
+Max epochs: 50
+Patience: 10
+Training set size: 83885
+Validation set size: 17975
